@@ -19,7 +19,9 @@ X = []
 y = []
 submission_data = []
 folder = 'data-v3'
-prediction_year = 2017
+dataFilesFolder = 'DataFiles'
+prelimFolder = 'PrelimData2018'
+prediction_year = 2018
 
 
 def calc_elo(win_team, lose_team, season):
@@ -116,10 +118,10 @@ def get_stat(season, team, field):
 
 
 def build_team_dict():
-    team_ids = pd.read_csv(folder + '/Teams.csv')
+    team_ids = pd.read_csv(dataFilesFolder + '/Teams.csv')
     team_id_map = {}
     for index, row in team_ids.iterrows():
-        team_id_map[row['Team_Id']] = row['Team_Name']
+        team_id_map[row['TeamID']] = row['TeamName']
     return team_id_map
 
 
@@ -218,8 +220,8 @@ if __name__ == "__main__":
                    'ast', 'to', 'stl', 'blk', 'pf']
 
     initialize_data()
-    season_data = pd.read_csv(folder + '/RegularSeasonDetailedResults.csv')
-    tourney_data = pd.read_csv(folder + '/TourneyDetailedResults.csv')
+    season_data = pd.read_csv(prelimFolder + '/RegularSeasonDetailedResults_Prelim2018.csv')
+    tourney_data = pd.read_csv(dataFilesFolder + '/NCAATourneyDetailedResults.csv')
     frames = [season_data, tourney_data]
     all_data = pd.concat(frames)
 
@@ -241,7 +243,7 @@ if __name__ == "__main__":
 
     # Now predict tournament matchups.
     print("Getting teams.")
-    seeds = pd.read_csv(folder + '/TourneySeeds.csv')
+    seeds = pd.read_csv(prelimFolder + '/NCAATourneySeeds_SampleTourney2018.csv')
     # for i in range(2016, 2017):
     tourney_teams = []
     for index, row in seeds.iterrows():
@@ -292,9 +294,9 @@ if __name__ == "__main__":
                 (team_id_map[winning], team_id_map[losing], proba)
             ]
         )
-    with open(folder + '/readable-predictions.csv', 'w') as f:
+    with open(dataFilesFolder + '/readable-predictions.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerows(readable)
-    with open(folder + '/less-readable-predictions.csv', 'w') as f:
+    with open(dataFilesFolder + '/less-readable-predictions.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerows(less_readable)
