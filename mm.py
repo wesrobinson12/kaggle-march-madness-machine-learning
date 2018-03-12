@@ -18,7 +18,6 @@ team_stats = {}
 X = []
 y = []
 submission_data = []
-folder = 'data-v3'
 dataFilesFolder = 'DataFiles'
 prelimFolder = 'PrelimData2018'
 prediction_year = 2018
