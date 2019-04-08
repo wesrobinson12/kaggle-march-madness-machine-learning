@@ -21,7 +21,6 @@ submission_data = []
 folder = 'data-2019'
 prediction_year = 2019
 
-
 def calc_elo(win_team, lose_team, season):
     winner_rank = get_elo(season, win_team)
     loser_rank = get_elo(season, lose_team)
@@ -218,6 +217,7 @@ if __name__ == "__main__":
                    'ast', 'to', 'stl', 'blk', 'pf']
 
     initialize_data()
+
     season_data = pd.read_csv(folder + '/RegularSeasonDetailedResults.csv')
     tourney_data = pd.read_csv(folder + '/NCAATourneyDetailedResults.csv')
     frames = [season_data, tourney_data]
